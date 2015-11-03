@@ -1,0 +1,30 @@
+extends ../layouts/default
+
+
+mixin member(member)
+	.small-6.large-3.columns.end
+		.panel.radius
+			.image-container
+				img(src=(member.photo.exists ? member._.photo.thumbnail(150) : 'http://damirhara.com/files/damirsquare.jpg'), alt=member.name.full)
+			.name-container
+				a(href='member/'+ member.key).text-center= member.name.full
+
+
+block intro
+	.header
+		.row.show-for-small-only
+			h2.text-center Owaid Members
+		.row.show-for-medium-up
+			.small-4.columns
+				h2 All Owaid Members
+			.small-6.columns
+				if data.categories.length
+					ul.inline-list
+						li(class=!data.category ? 'active' : false): a(href='/members') All
+							each cat in data.categories
+								li(class=data.category && data.category.id == cat.id ? 'active' : false): a(href='/members/' + cat.key)= cat.name
+
+block content
+	.row
+		each member in data.members.results
+			+member(member)

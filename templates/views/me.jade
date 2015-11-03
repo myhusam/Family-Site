@@ -1,0 +1,72 @@
+extends ../layouts/default
+
+
+block intro
+	.header
+		.row
+			.small-4.small-centered.columns
+				h2.text-center 050480060
+
+
+block content
+	.row: .small-6.small-centered.columns
+		form(method='post', autocomplete='off', novalidate)
+			input(type='hidden', name='action', value='profile.password')
+			fieldset
+				legend Password Change
+				label(for='') New Password
+					.row
+						.small-7.columns
+							input(type='password', placeholder='New Password', name='password')
+						.small-7.columns
+							input(type='password', placeholder='Confirm Password', name='password_confirm')
+				hr
+				button.button.small.radius.ffab-after.fa-arrow-right(type='submit', class='[ ]') Change Your Password
+	.row: .small-6.small-centered.columns
+		form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate)
+			input(type='hidden', name='action', value='profile.details')
+			fieldset
+				legend Your Profile
+				label(for='') Full Name
+					.row
+						.small-7.columns
+							input(type='text', placeholder='Full Name', name='name.first' value=user.name.first)
+						.small-7.columns
+							input(type='text', placeholder='Full Name', name='name.middle' value=user.name.middle)
+						//- .small-4.columns
+						//- 	input(type='text', placeholder='Last Name', name='name.last' value=user.name.last)
+				label(for='') Fathers
+					.row
+						.small-14.columns
+							select(name='status')
+								option(value="") Choose
+								each type in status
+									option(value=type.value, selected=user.status == type.value)= type.value
+
+				label(for='') City
+					.row
+						.small-14.columns
+							select(name='city')
+								option(value="") Choose
+								each type in city
+									option(value=type.value, selected=user.city == type.value)= type.value
+
+				label(for='') Email
+					.row
+						.small-14.columns
+							input(type='email', placeholder='Email Address', name='email', value=user.email)
+
+				label(for='') Your Photo
+					.row
+						.small-14.columns
+							if user.photo.exists
+								.row
+									.small-10.columns: input(type='file', name='photo_upload')
+									.small-4.columns: img(src=user._.photo.thumbnail(120,120)).img-responsive
+							else
+								button.file-upload.button.small.info.radius.ffab-after.fa-arrow-right
+									input.file-input(type='file', name='photo_upload') 
+									| Choose Image
+
+				hr
+				button.button.small.radius.ffab-after.fa-arrow-right(type='submit') Update Profile

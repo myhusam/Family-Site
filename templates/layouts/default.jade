@@ -1,0 +1,91 @@
+include ../mixins/flash-messages
+
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+		title= title || 'family-site'
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+
+		//- Customise the stylesheet for your site by editing /public/styles/site.sass
+		link(href="/styles/site.css", rel="stylesheet")
+
+		//- This file provides the default styling for the KeystoneJS Content Editor
+		if user && user.canAccessKeystone
+			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
+
+		//- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+		//- Safely remove this block if you are not targeting IE8
+		//-[if lt IE 9]
+			script(src="//cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js")
+			script(src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js")
+		//-[endif]
+
+		block css
+
+
+		block head
+	body
+		#header
+			nav.top-bar.show-for-large-up(data-topbar='')
+				ul.title-area
+					li.name
+						h1
+							a(href='#') Owaid Site
+					li.toggle-topbar.menu-icon
+						a(href='#')
+							span Menu
+				section.top-bar-section
+					ul.right
+						if user
+							if user.canAccessKeystone
+								li: a(href='/keystone') Open Keystone
+							li: a(href='/me')= user.name.full
+							li: a(href='/signout') Sign Out
+						else
+							li: a(href='/signin') Sign In
+					ul.left
+						each link in navLinks
+							li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+			.off-canvas-wrap(data-offcanvas='')
+				.inner-wrap
+					nav.tab-bar.hide-for-large-up
+						section.middle.tab-bar-section
+							h1.title Foundation
+
+						section.right-small
+							a.right-off-canvas-toggle.menu-icon(href='#')
+								span
+					aside.right-off-canvas-menu
+						ul.off-canvas-list
+							li
+								label Main Menu
+							each link in navLinks
+								li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+					section.main-section
+
+
+					#body
+
+						block intro
+						+flash-messages(messages)
+						block content
+
+					hr
+					.container: #footer.text-center
+						p Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.
+					
+					a.exit-off-canvas
+
+
+		script(src='/js/jquery/jquery-1.11.3.min.js')
+
+		script(src='/js/foundation.min.js')
+			
+		if user && user.canAccessKeystone
+			script(src='/keystone/js/content/editor.js')
+		script(src='/js/app.js')
+		block js

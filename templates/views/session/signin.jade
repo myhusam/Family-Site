@@ -1,0 +1,20 @@
+extends ../../layouts/default
+block flash-messages
+block intro
+	.header: .row
+		.small-6.columns
+			h2 Login Page
+
+
+block content
+	.row: .small-12.large-5.large-centered.columns
+		form(method='post', action='/signin', role='signin', novalidate)
+			input(type='hidden', name='action', value='signin')
+			fieldset
+				legend Login Form
+				
+				label(for="Phone") Phone
+				input(type='text', placeholder='Mobile Number', name='phone' value=locals.form ? locals.form.phone : null)
+				label(for="password") Password
+				input(type='password', placeholder='Password', value='', name='password')
+			button.button.small.radius.ffab-after.fa-arrow-right(type='submit') Login

@@ -1,0 +1,22 @@
+{
+  "name": "family-site",
+  "description": "",
+  "main": "keystone.js",
+  "authors": [
+    "Husam <myhusam@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/myhusam/Family-Site",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.5.3",
+    "foundation-font-awesome-buttons": "~2.0.0"
+  }
+}
